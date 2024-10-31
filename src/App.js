@@ -71,12 +71,13 @@
 
 import React from "react";
 import Board from "./components/Board";
-import PlayerSide from "./components/PlayerSide";
 import Chat from "./components/Chat";
 import GameOverModal from "./components/GameOverModal";
+import PlayerSide from "./components/PlayerSide";
 import { useSelector, useDispatch } from "react-redux";
 import { resetGame, resetScores } from "./store/gameSlice"; // Import resetScores
 import "./styles.css"; // Ensure CSS is imported
+import { Play } from "lucide-react";
 
 function App() {
   const currentPlayer = useSelector((state) => state.game.currentPlayer);
@@ -125,9 +126,8 @@ function App() {
       <div className="game-board">
         {/* Player X's Side */}
         <div className="player-side-container">
-          <PlayerSide player="X" />
           <Board player="X" />
-          <Chat player="X" />
+          <Chat player="X" isBlurred={currentPlayer === "O"} />
           {currentPlayer === "O" && <div className="blur-effect" />}
         </div>
 
@@ -136,9 +136,8 @@ function App() {
 
         {/* Player O's Side */}
         <div className="player-side-container">
-          <PlayerSide player="O" />
           <Board player="O" />
-          <Chat player="O" />
+          <Chat player="O" isBlurred={currentPlayer === "X"} />
           {currentPlayer === "X" && <div className="blur-effect" />}
         </div>
       </div>

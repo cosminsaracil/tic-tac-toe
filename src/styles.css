@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
 /* General Styles */
 body {
   margin: 0;
@@ -25,11 +28,12 @@ body {
 }
 
 .square {
+  position: relative; /* Needed for positioning pseudo-elements */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: #ffa500; /* Orange color for X and O */
+  color: transparent; /* Hide text to only show shapes */
   background-color: #333;
   border: 2px solid #555;
   cursor: pointer;
@@ -41,9 +45,10 @@ body {
   display: flex;
   flex-direction: column; /* Stack the game and chat vertically */
   align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
-  position: relative; /* Needed for the blur effect */
+  justify-content: flex-start; /* Align content at the top */
   padding: 20px; /* Add some padding */
+  height: 100%; /* Full height of parent container */
+  overflow: hidden; /* Ensure no overflow causes height issues */
 }
 
 /* Separator */
@@ -78,11 +83,13 @@ body {
   border-radius: 8px;
   width: 300px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .messages {
-  max-height: 200px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
@@ -90,7 +97,12 @@ body {
   margin: 5px 0;
   border-radius: 5px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  flex-shrink: 1;
+  flex-grow: 0;
+  max-width: calc(100% - 60px); /* Adjust this value as needed */
+  word-break: break-word; /* Break words at word boundaries */
 }
 
 .message.player1 {
@@ -102,8 +114,11 @@ body {
 }
 
 .timestamp {
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 0.6rem;
+  color: #3b3b3b;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
 
 /* Input */
@@ -409,4 +424,81 @@ button:hover {
   display: flex; /* Flex for the game board */
   justify-content: center; /* Center the board */
   align-items: flex-start; /* Align items at the top */
+}
+.chat-container {
+  border: 1px solid #a8a8a8;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #363636;
+  width: 400px; /* Increased width */
+  height: 300px; /* Decreased height */
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  align-items: left;
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 15px;
+  position: relative;
+  flex-shrink: 1;
+  flex-grow: 0;
+  max-width: calc(100% - 60px);
+  gap: 2px; /* Space between message text and timestamp */
+}
+.sent {
+  align-self: flex-end;
+  background-color: #00c56c; /* Light green for sent messages */
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #ca7e85; /* Light red for received messages */
+}
+
+.message-text {
+  word-break: break-word;
+  flex: 1;
+  min-width: 0; /* Allows text to shrink below its minimum content size */
+}
+
+.timestamp {
+  font-size: 0.5rem;
+  color: #3b3b3b;
+  white-space: nowrap; /* Prevent timestamp from wrapping */
+  align-self: flex-end; /* Align timestamp to bottom */
+  margin-left: 8px; /* Space between message and timestamp */
+  position: static; /* Remove absolute positioning */
+}
+
+.input-container {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #dddddd;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 15px;
+  margin-right: 10px;
+  background-color: rgb(99, 99, 99);
+  color: white;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #005fc4; /* Blue color */
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #023e7e; /* Darker blue on hover */
 }

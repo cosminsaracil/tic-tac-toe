@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../store/chatSlice"; // Correct import
 
-function Chat({ player }) {
+function Chat({ player, isBlurred }) {
+  // Accept isBlurred as a prop
   const dispatch = useDispatch();
   const messages = useSelector((state) =>
     state.chat ? state.chat.messages : []
@@ -29,20 +30,25 @@ function Chat({ player }) {
           <div
             key={index}
             className={`message ${
-              msg.sender === `Player ${player}` ? "player1" : "player2"
+              msg.sender === `Player ${player}` ? "sent" : "received"
             }`}
           >
-            <span>{msg.text}</span>
+            <span className="message-text">{msg.text}</span>
             <span className="timestamp">{msg.time}</span>
           </div>
         ))}
       </div>
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Message"
-      />
-      <button onClick={handleSendMessage}>Send</button>
+      <div className="input-container">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          disabled={isBlurred} // Disable input if the side is blurred
+        />
+        <button onClick={handleSendMessage} disabled={isBlurred}>
+          Send
+        </button>
+      </div>
     </div>
   );
 }
