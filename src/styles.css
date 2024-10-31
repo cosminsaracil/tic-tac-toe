@@ -1,8 +1,17 @@
-/* Tic Tac Toe Board */
+/* General Styles */
 body {
+  margin: 0;
   background-color: #121212;
   color: #fff;
   font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the top */
+  padding: 20px;
+  gap: 20px; /* Space between sections */
 }
 
 /* Tic Tac Toe Board */
@@ -26,11 +35,34 @@ body {
 }
 
 /* Player Sections */
-.player-section {
-  flex: 1; /* Allow sections to grow equally */
+.player-side-container {
+  flex: 1; /* Equal space for both sides */
   display: flex;
-  flex-direction: column; /* Stack chat and player info */
-  align-items: center;
+  flex-direction: column; /* Stack the game and chat vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  position: relative; /* Needed for the blur effect */
+  padding: 20px; /* Add some padding */
+}
+
+/* Separator */
+.separator {
+  width: 2px; /* Thickness of the separator line */
+  background-color: black; /* Color of the line */
+  height: 100%; /* Full height of the container */
+}
+
+/* Blur Effect */
+.blur-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.001); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Apply blur */
+  z-index: 1; /* Ensure blur is above the background */
+  pointer-events: none; /* Allow clicks to go through the blur */
 }
 
 /* Chat Container */
@@ -90,43 +122,26 @@ button {
 button:hover {
   background-color: #218838;
 }
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Align items at the top */
-  padding: 20px;
-  gap: 20px; /* Space between sections */
-}
 
+/* Score Display */
 .score {
   text-align: center;
   font-size: 1.5rem;
   color: #fff;
 }
 
-.board-section,
-.chat-section {
-  flex: 1;
-  padding: 10px;
-}
+/* Game Container */
 .game-container {
-  display: flex;
-  justify-content: space-between;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between player sections */
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height of the viewport */
 }
 
-.player-side-container {
+.player-section {
+  flex: 1; /* Allow sections to grow equally */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack chat and player info */
   align-items: center;
-}
-
-.board {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
-  gap: 10px;
-}
-
-.player-side {
-  margin: 10px;
+  padding: 10px; /* Additional padding for player sections */
 }

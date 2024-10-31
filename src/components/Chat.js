@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../store/chatSlice"; // Correct import
 
-function Chat() {
+function Chat({ player }) {
   const dispatch = useDispatch();
   const messages = useSelector((state) =>
     state.chat ? state.chat.messages : []
@@ -14,7 +14,7 @@ function Chat() {
       dispatch(
         addMessage({
           text: input,
-          sender: "Player 1", // Update based on the actual player
+          sender: `Player ${player}`, // Update based on the actual player
           time: new Date().toLocaleTimeString(),
         })
       );
@@ -29,7 +29,7 @@ function Chat() {
           <div
             key={index}
             className={`message ${
-              msg.sender === "Player 1" ? "player1" : "player2"
+              msg.sender === `Player ${player}` ? "player1" : "player2"
             }`}
           >
             <span>{msg.text}</span>
