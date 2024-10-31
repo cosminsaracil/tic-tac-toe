@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Board from "./components/Board";
+import PlayerSide from "./components/PlayerSide";
+import Chat from "./components/Chat";
+import GameOverModal from "./components/GameOverModal";
+import "./styles.css"; // Ensure CSS is imported
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="game-container">
+      <div className="player-side-container">
+        <PlayerSide player="X" />
+        <Board />
+      </div>
+      <div className="player-side-container">
+        <PlayerSide player="O" />
+        <Board />
+      </div>
+      <Chat />
+      <GameOverModal />
     </div>
   );
 }
