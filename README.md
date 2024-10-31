@@ -18,4 +18,4 @@ Launches the test runner in the interactive watch mode.\
 
 ### `npm run build`
 
-Alternatively, you can check the deployed app here:
+Alternatively, you can check the deployed app here: https://cosminsaracil.github.io/tictactoe/
