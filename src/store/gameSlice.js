@@ -4,6 +4,7 @@ const initialState = {
   board: Array(9).fill(null), // 3x3 Tic-Tac-Toe board
   currentPlayer: "X",
   result: null, // Initialize result state
+  score: { X: 0, O: 0 }, // Initialize score state
 };
 
 // Define winning combinations
@@ -57,6 +58,10 @@ const gameSlice = createSlice({
         // Check for win or draw logic here
         const winner = checkWinner(state.board);
         if (winner) {
+          // Update the score for the winning player
+          if (winner !== "Draw") {
+            state.score[winner] += 1; // Increment the winner's score
+          }
           state.result =
             winner === "Draw" ? "It's a Draw!" : `Player ${winner} Wins!`;
         }
@@ -69,8 +74,11 @@ const gameSlice = createSlice({
       state.currentPlayer = "X";
       state.result = null; // Clear result
     },
+    resetScores: (state) => {
+      state.score = { X: 0, O: 0 }; // Reset scores
+    },
   },
 });
 
-export const { selectSquare, resetGame } = gameSlice.actions; // Export resetGame
+export const { selectSquare, resetGame, resetScores } = gameSlice.actions; // Export actions
 export default gameSlice.reducer;

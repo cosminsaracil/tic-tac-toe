@@ -12,6 +12,7 @@ body {
   align-items: flex-start; /* Align items at the top */
   padding: 20px;
   gap: 20px; /* Space between sections */
+  height: 100vh; /* Full height of the viewport */
 }
 
 /* Tic Tac Toe Board */
@@ -49,7 +50,11 @@ body {
 .separator {
   width: 2px; /* Thickness of the separator line */
   background-color: black; /* Color of the line */
-  height: 100%; /* Full height of the container */
+  position: absolute; /* Position absolutely within the container */
+  top: 0; /* Start from the top of the container */
+  bottom: 0; /* Extend to the bottom of the container */
+  left: 50%; /* Center the separator horizontally */
+  transform: translateX(-50%); /* Adjust to center perfectly */
 }
 
 /* Blur Effect */
@@ -133,15 +138,275 @@ button:hover {
 /* Game Container */
 .game-container {
   display: flex; /* Use flexbox for layout */
-  justify-content: space-between; /* Space between player sections */
+  flex-direction: column; /* Stack header and game board vertically */
+  justify-content: flex-start; /* Align items at the top */
   width: 100%; /* Full width */
   height: 100vh; /* Full height of the viewport */
 }
 
-.player-section {
-  flex: 1; /* Allow sections to grow equally */
+/* Header Styles */
+.header {
   display: flex;
-  flex-direction: column; /* Stack chat and player info */
+  justify-content: space-between; /* Space between Player 1, Score, and Player 2 */
+  align-items: center; /* Center items vertically */
+  padding: 10px; /* Add padding for spacing */
+  position: relative; /* Allow absolute positioning of child elements */
+}
+
+.player-info {
+  width: 50%; /* Set width to half of the screen */
+  text-align: center; /* Center player names */
+  /* background-color: red; For visual debugging */
+  align-items: center; /* Center vertically */
+  position: absolute;
+  justify-content: center;
+  flex: 1;
+  display: flex;
+  height: 100%;
+  font-size: larger;
+}
+
+.player1 {
+  left: 0; /* Align Player 1 to the left */
+  top: 0; /* Align Player 1 to the top */
+}
+
+.player2 {
+  right: 0; /* Align Player 2 to the right */
+  top: 0; /* Align Player 2 to the top */
+}
+
+.score-container {
+  display: flex;
+  align-items: center; /* Vertically center score and buttons */
+  justify-content: center; /* Center them in the header */
+  flex: 1; /* Take available space in the center */
+}
+
+.reset-button {
+  /* Ensure these properties are set appropriately */
+  z-index: 1; /* Make sure it's above other elements */
+  pointer-events: auto; /* Should not be none */
+  display: inline-block; /* Ensure it's displayed */
+}
+
+.score {
+  font-weight: bold; /* Make the score stand out */
+  margin: 0 20px; /* Add margin to prevent overlap with buttons */
+}
+
+/* Divider Styles */
+.divider {
+  height: 2px; /* Height of the divider */
+  background-color: #555; /* Color of the divider */
+  width: 100%; /* Full width */
+  margin: 10px 0; /* Spacing around the divider */
+}
+
+.game-board {
+  display: flex; /* Flex for the game board */
+  justify-content: center; /* Center the board */
+  align-items: flex-start; /* Align items at the top */
+}
+
+/* General Styles */
+body {
+  margin: 0;
+  background-color: #121212;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the top */
+  padding: 20px;
+  gap: 20px; /* Space between sections */
+}
+
+/* Tic Tac Toe Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.square {
+  display: flex;
   align-items: center;
-  padding: 10px; /* Additional padding for player sections */
+  justify-content: center;
+  font-size: 2rem;
+  color: #ffa500; /* Orange color for X and O */
+  background-color: #333;
+  border: 2px solid #555;
+  cursor: pointer;
+}
+
+/* Player Sections */
+.player-side-container {
+  flex: 1; /* Equal space for both sides */
+  display: flex;
+  flex-direction: column; /* Stack the game and chat vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  position: relative; /* Needed for the blur effect */
+  padding: 20px; /* Add some padding */
+}
+
+/* Separator */
+.separator {
+  width: 2px; /* Thickness of the separator line */
+  background-color: black; /* Color of the line */
+  height: calc(100% - 50px); /* Adjust height so it doesn't cross the header */
+  position: absolute; /* Position absolutely within the container */
+  top: 60px; /* Start just below the header (adjust this value as needed) */
+  left: 50%; /* Center the separator horizontally */
+  transform: translateX(-50%); /* Adjust to center perfectly */
+}
+
+/* Blur Effect */
+.blur-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.001); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Apply blur */
+  z-index: 1; /* Ensure blur is above the background */
+  pointer-events: none; /* Allow clicks to go through the blur */
+}
+
+/* Chat Container */
+.chat-container {
+  background-color: #222;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 300px;
+  margin: 20px;
+}
+
+.messages {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.message.player1 {
+  background-color: #444;
+}
+
+.message.player2 {
+  background-color: #2e8b57;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Input */
+input {
+  width: calc(100% - 50px);
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+button {
+  padding: 8px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Score Display */
+.score {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Game Container */
+.game-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack header and game board vertically */
+  justify-content: flex-start; /* Align items at the top */
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height of the viewport */
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between; /* Space between Player 1, Score, and Player 2 */
+  align-items: center; /* Center items vertically */
+  padding: 10px; /* Add padding for spacing */
+  position: relative; /* Allow absolute positioning of child elements */
+}
+
+.player-info {
+  flex: 1; /* Set to fill available space */
+  display: flex;
+  justify-content: center; /* Center player names */
+  text-align: center; /* Center text */
+  height: 100%; /* Full height */
+  font-size: larger;
+}
+
+.player1 {
+  margin-right: auto; /* Align Player 1 to the left */
+}
+
+.player2 {
+  margin-left: auto; /* Align Player 2 to the right */
+}
+
+.score-container {
+  display: flex;
+  align-items: center; /* Vertically center score and buttons */
+  justify-content: center; /* Center them in the header */
+  flex: 1; /* Take available space in the center */
+}
+
+.reset-button {
+  margin: 0 10px; /* Add margin for spacing between buttons and score */
+  padding: 5px 10px; /* Add padding to buttons for better appearance */
+}
+
+.score {
+  font-weight: bold; /* Make the score stand out */
+  margin: 0 20px; /* Add margin to prevent overlap with buttons */
+}
+
+/* Divider Styles */
+.divider {
+  height: 2px; /* Height of the divider */
+  background-color: #555; /* Color of the divider */
+  width: 100%; /* Full width */
+  margin: 10px 0; /* Spacing around the divider */
+}
+
+.game-board {
+  display: flex; /* Flex for the game board */
+  justify-content: center; /* Center the board */
+  align-items: flex-start; /* Align items at the top */
 }
