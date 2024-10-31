@@ -1,13 +1,12 @@
 import React from "react";
-import { createRoot } from "react-dom/client"; // Import createRoot
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./store";
 import App from "./App";
-import "./styles.css"; // Import the CSS file here
+import "./styles.css";
 
-const container = document.getElementById("root"); // Select the root element
-const root = createRoot(container); // Create a root
-
+const container = document.getElementById("root");
+const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <App />

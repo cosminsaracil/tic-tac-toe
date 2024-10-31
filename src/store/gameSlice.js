@@ -1,36 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  board: Array(9).fill(null), // 3x3 Tic-Tac-Toe board
+  board: Array(9).fill(null), // 3x3 ttt board
   currentPlayer: "X",
-  result: null, // Initialize result state
-  score: { X: 0, O: 0 }, // Initialize score state
+  result: null,
+  score: { X: 0, O: 0 },
 };
 
-// Define winning combinations
+//  winning combinations
 const winningCombinations = [
-  [0, 1, 2], // Row 1
-  [3, 4, 5], // Row 2
-  [6, 7, 8], // Row 3
-  [0, 3, 6], // Column 1
-  [1, 4, 7], // Column 2
-  [2, 5, 8], // Column 3
-  [0, 4, 8], // Diagonal \
-  [2, 4, 6], // Diagonal /
+  [0, 1, 2], // 1
+  [3, 4, 5], // 2
+  [6, 7, 8], // 3
+  [0, 3, 6], // ,1
+  [1, 4, 7], // ,2
+  [2, 5, 8], // ,3
+  [0, 4, 8], // diagonal \
+  [2, 4, 6], // diagonal /
 ];
 
 // const checkWinner = (board) => {
 //   for (const combination of winningCombinations) {
 //     const [a, b, c] = combination;
 //     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-//       return board[a]; // Return the winner ('X' or 'O')
+//       return board[a];
 //     }
 //   }
-//   // Check for draw (if there are no empty squares left)
 //   if (board.every((square) => square)) {
-//     return "Draw"; // Indicate a draw
+//     return "Draw";
 //   }
-//   return null; // No winner yet
+//   return null;
 // };
 const checkWinner = (board) => {
   for (const combination of winningCombinations) {
@@ -39,11 +38,11 @@ const checkWinner = (board) => {
       return board[a]; // Return the winner ('X' or 'O')
     }
   }
-  // Check for draw (if there are no empty squares left)
+  // check for draw
   if (board.every((square) => square)) {
-    return "Draw"; // Indicate a draw
+    return "Draw";
   }
-  return null; // No winner yet
+  return null;
 };
 
 const gameSlice = createSlice({
@@ -54,13 +53,11 @@ const gameSlice = createSlice({
       const index = action.payload;
       if (!state.board[index]) {
         state.board[index] = state.currentPlayer;
-
-        // Check for win or draw logic here
         const winner = checkWinner(state.board);
         if (winner) {
-          // Update the score for the winning player
+          // update the score for the winning player
           if (winner !== "Draw") {
-            state.score[winner] += 1; // Increment the winner's score
+            state.score[winner] += 1; // increment the winner's score
           }
           state.result =
             winner === "Draw" ? "It's a Draw!" : `Player ${winner} Wins!`;
@@ -72,13 +69,13 @@ const gameSlice = createSlice({
     resetGame: (state) => {
       state.board = Array(9).fill(null);
       state.currentPlayer = "X";
-      state.result = null; // Clear result
+      state.result = null;
     },
     resetScores: (state) => {
-      state.score = { X: 0, O: 0 }; // Reset scores
+      state.score = { X: 0, O: 0 };
     },
   },
 });
 
-export const { selectSquare, resetGame, resetScores } = gameSlice.actions; // Export actions
+export const { selectSquare, resetGame, resetScores } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -5,7 +5,7 @@ import chatReducer from "./chatSlice";
 const store = configureStore({
   reducer: {
     game: gameReducer,
-    chat: chatReducer, // Ensure this is included
+    chat: chatReducer,
   },
 });
 

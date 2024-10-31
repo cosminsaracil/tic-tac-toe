@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../store/chatSlice"; // Correct import
+import { addMessage } from "../store/chatSlice";
 
 function Chat({ player, isBlurred }) {
-  // Accept isBlurred as a prop
   const dispatch = useDispatch();
+
+  // select messages from the Redux store; fallback to an empty array if not present
   const messages = useSelector((state) =>
     state.chat ? state.chat.messages : []
   );
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(""); // user input
 
   const handleSendMessage = () => {
+    // Only send the message if the input is not empty
     if (input.trim()) {
       dispatch(
         addMessage({
           text: input,
-          sender: `Player ${player}`, // Update based on the actual player
-          time: new Date().toLocaleTimeString(),
+          sender: `Player ${player}`, //sender's identifyer
+          time: new Date().toLocaleTimeString(), //timestamp
         })
       );
-      setInput("");
+      setInput(""); // clear after send
     }
   };
 
